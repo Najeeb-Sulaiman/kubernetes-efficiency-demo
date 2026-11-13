@@ -201,3 +201,69 @@ kubectl get pods -w
 - Does the replica count immediately return to its minimum?
 
 Don't just watch the replica count. Try to understand why it changes and what influences the timing.
+
+### Experiment 3: Why is my pod Pending when the node has unused CPU?
+
+This experiment demonstrates one of the most important concepts in Kubernetes resource management.
+
+A node can have relatively low actual CPU consumption while having very little unallocated CPU capacity from the scheduler's perspective.
+
+Consider this simplified example:
+
+| Metric | CPU |
+| ---- | ----|
+| Node allocatable CPU | 2000m |
+| Existing pod requests | 1800m
+| Actual CPU consumption | 700m
+| New pod request | 500m
+
+Although actual CPU consumption is only 700m, the scheduler accounts for 1800m of existing requests.
+
+Adding another pod requesting 500m would require:
+
+```bash
+1800m + 500m = 2300m
+```
+
+The node only has 2000m of allocatable CPU.
+
+Consequently, the scheduler cannot place the new pod on that node based on CPU capacity.
+
+**Experiment:** Introduce a resource-reservation pod to consume most of the node's remaining schedulable CPU capacity.
+
+Inspect the node's resource accounting:
+
+```bash
+kubectl describe node minikube
+```
+
+Use the Allocated resources section to understand the existing requests.
+
+Then apply the capacity-reservation manifest:
+
+```bash
+kubectl apply -f k8s/capacity-reservation.yaml
+```
+
+Adjust its CPU request based on the actual available scheduling capacity of your node. Don't assume a fixed value will work across different Minikube configurations.
+
+Reintroduce workload pressure and observe the pods:
+
+```bash
+kubectl get pods -w
+```
+
+Inspect any Pending pod:
+
+```bash
+kubectl describe pod <pending-pod-name>
+```
+
+Look for scheduling events such as:
+
+```bash
+FailedScheduling
+Insufficient cpu
+```
+
+The key takeaway here is that Actual CPU consumption and schedulable CPU capacity are not the same thing.
