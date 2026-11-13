@@ -267,3 +267,39 @@ Insufficient cpu
 ```
 
 The key takeaway here is that Actual CPU consumption and schedulable CPU capacity are not the same thing.
+
+### Experiment 4: What happens when we introduce another node?
+
+We have seen how HPA can request additional replicas while the scheduler cannot find enough capacity to place them.
+
+What changes when another node becomes available?
+
+Add a Minikube node:
+
+```bash
+minikube node add
+```
+
+Check the cluster:
+
+```bash
+kubectl get nodes
+```
+
+Make sure the application image is available to the new node. Depending on your Minikube version, you can use:
+
+```bash
+minikube image load customer-event-processor:v1 --all
+```
+
+Then observe pod placement:
+
+```bash
+kubectl get pods -o wide -w
+```
+
+If the additional node has sufficient allocatable resources and satisfies the pod's scheduling requirements, previously Pending pods can now be scheduled.
+
+**Important distinction:** This experiment manually adds a Minikube node. It demonstrates the effect of additional node capacity, not automatic node autoscaling.
+
+In a production environment, a configured node autoscaler can automate infrastructure scaling when eligible pods cannot be scheduled.
