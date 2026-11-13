@@ -303,3 +303,25 @@ If the additional node has sufficient allocatable resources and satisfies the po
 **Important distinction:** This experiment manually adds a Minikube node. It demonstrates the effect of additional node capacity, not automatic node autoscaling.
 
 In a production environment, a configured node autoscaler can automate infrastructure scaling when eligible pods cannot be scheduled.
+
+## Cleaning up
+
+Remove the Kubernetes resources:
+
+```bash
+kubectl delete -f k8s/
+```
+
+If you created the reservation pod or other resources outside the manifests, remove those separately.
+
+Stop Minikube:
+
+```bash
+minikube stop
+```
+
+Or delete the local cluster entirely:
+
+```bash
+minikube delete --all
+```
