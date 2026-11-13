@@ -96,3 +96,45 @@ The response includes information about the application instance and the work pe
 
 The port-forward is useful for testing an individual access path. For load-generation experiments, use the Kubernetes Service from inside the cluster so requests can be distributed across its backing pods.
 
+## Experiments
+
+The repository is organised around a series of experiments. The aim of this experiments is to understand how the different Kubernetes mechanisms interact.
+
+### Experiment 1: Understand resource requests and limits
+
+Let's start by inspecting the Deployment manifest:
+
+`k8s/deployment.yaml`
+
+The application containers have the following initial resource configuration:
+
+```yaml
+resources:
+  requests:
+    cpu: "250m"
+    memory: "128Mi"
+  limits:
+    cpu: "500m"
+    memory: "256Mi"
+```
+
+Before changing anything, consider asking these questions:
+
+1. What does a CPU request of 250m actually mean?
+2. Does it guarantee that the container always receives 250m of CPU?
+3. What happens if the application tries to consume more CPU than its limit?
+4. What happens if the container exceeds its memory limit?
+5. How might reducing the CPU request affect the number of pods that can be scheduled?
+
+**Experiment:** Change the CPU request and observe how the scheduler's resource accounting changes.
+
+Useful commands:
+
+```bash
+kubectl describe node
+
+kubectl top nodes
+
+kubectl top pods
+```
+
