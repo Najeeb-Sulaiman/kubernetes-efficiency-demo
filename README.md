@@ -138,3 +138,66 @@ kubectl top nodes
 kubectl top pods
 ```
 
+Pay attention to the difference between resource capacity, allocatable resources, requested resources and actual consumption.
+
+### Experiment 2: Observe Horizontal Pod Autoscaling
+
+Enable Metrics Server:
+
+```bash
+minikube addons enable metrics-server
+```
+
+Deploy the HPA configuration:
+
+```bash
+kubectl apply -f k8s/hpa.yaml
+```
+
+Inspect the autoscaler:
+
+```bash
+kubectl get hpa
+
+kubectl describe hpa customer-event-processor
+```
+
+The example HPA configuration uses:
+
+- Minimum replicas: 2
+- Maximum replicas: 6
+- Target CPU utilisation: 50%
+
+Remember that HPA's CPU utilisation target is calculated relative to the CPU requests.
+
+For example, with a CPU request of `250m` and a target utilisation of `50%`, the target average CPU consumption is approximately `125m` per pod.
+
+Now, introduce concurrent requests using the load generator:
+
+```bash
+python load.py
+```
+
+The load generator should send concurrent requests to the Kubernetes Service and maintain sufficient workload pressure to trigger scaling.
+
+Observe the autoscaler:
+
+```bash
+kubectl get hpa -w
+```
+
+In another terminal:
+
+```bash
+kubectl get pods -w
+```
+
+**You should observe:**
+
+- How does CPU utilisation change when load is introduced?
+- When does HPA increase the desired replica count?
+- How long does it take for new pods to become Ready?
+- What happens when the load is removed?
+- Does the replica count immediately return to its minimum?
+
+Don't just watch the replica count. Try to understand why it changes and what influences the timing.
