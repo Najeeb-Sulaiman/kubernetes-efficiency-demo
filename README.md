@@ -1,5 +1,17 @@
 # Kubernetes Efficiency: Beyond Rightsizing
 
+## Technology stack
+
+| Technology | Purpose |
+| ---- | ----|
+| Python | Application and load generator
+| FastAPI | Lightweight HTTP application
+| Docker | Containerisation
+| Kubernetes |	Workload orchestration
+| Minikube | Local Kubernetes environment
+| Metrics Server | Container and node resource metrics
+| HPA | Application-level autoscaling
+
 ## Prerequisites
 
 You will need:
