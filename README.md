@@ -1,5 +1,9 @@
 # Kubernetes Efficiency: Beyond Rightsizing
 
+Explore how Kubernetes manages resources, schedules workloads and responds to changing demand through a practical, hands-on demonstration.
+
+This repository contains a small CPU-intensive application deployed to Kubernetes. The application is used it to experiment with resource requests and limits, observe the Horizontal Pod Autoscaler (HPA), investigate why pods remain Pending even when nodes appear to have unused CPU, and understand the relationship between application scaling and infrastructure capacity.
+
 ## Technology stack
 
 | Technology | Purpose |
