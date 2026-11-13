@@ -4,6 +4,22 @@ Explore how Kubernetes manages resources, schedules workloads and responds to ch
 
 This repository contains a small CPU-intensive application deployed to Kubernetes. The application is used it to experiment with resource requests and limits, observe the Horizontal Pod Autoscaler (HPA), investigate why pods remain Pending even when nodes appear to have unused CPU, and understand the relationship between application scaling and infrastructure capacity.
 
+## Why this project?
+
+Consider a service that processes customer events throughout the day. During quiet periods, it consumes relatively little CPU. When demand increases, it needs more processing capacity.
+
+How should we provision the infrastructure?
+
+- Should we allocate enough resources to handle peak demand and accept lower utilisation during quiet periods?
+- Should we reduce CPU requests so that more pods can fit onto existing nodes?
+- Should we rely on autoscaling to respond to changes in demand?
+- What happens when HPA creates additional pods but the cluster doesn't have enough capacity to schedule them?
+- Does higher resource utilisation necessarily mean more sustainable infrastructure?
+
+These questions expose a very important insight: Kubernetes efficiency is beyond a single configuration setting or utilisation metric.
+
+This project provides practical experiments to explore these questions.
+
 ## Technology stack
 
 | Technology | Purpose |
