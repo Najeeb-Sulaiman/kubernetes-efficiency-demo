@@ -364,7 +364,7 @@ Deepen your understanding by connecting the experiments with the official Kubern
 
 - [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
 - [Kubernetes Scheduler](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/)
-- Assigning Pods to Nodes
+- [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/)
 - Horizontal Pod Autoscaling
 - Node Autoscaling
 - Metrics Server
