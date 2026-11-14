@@ -357,3 +357,14 @@ Or delete the local cluster entirely:
 ```bash
 minikube delete --all
 ```
+
+## Further reading
+
+Deepen your understanding by connecting the experiments with the official Kubernetes documentation.
+
+- Resource Management for Pods and Containers
+- Kubernetes Scheduler
+- Assigning Pods to Nodes
+- Horizontal Pod Autoscaling
+- Node Autoscaling
+- Metrics Server
