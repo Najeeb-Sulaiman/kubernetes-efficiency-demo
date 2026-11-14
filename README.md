@@ -362,8 +362,8 @@ minikube delete --all
 
 Deepen your understanding by connecting the experiments with the official Kubernetes documentation.
 
-- Resource Management for Pods and Containers
-- Kubernetes Scheduler
+- [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
+- [Kubernetes Scheduler](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/)
 - Assigning Pods to Nodes
 - Horizontal Pod Autoscaling
 - Node Autoscaling
