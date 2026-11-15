@@ -132,6 +132,7 @@ The port-forward is useful for testing an individual access path. For load-gener
 
 Below diagram explains the scaling lifecycle.
 
+```mermaid
 flowchart TB
     A["Workload demand increases"] --> B["CPU utilisation rises"]
     B --> C["Metrics Server exposes metrics"]
@@ -151,6 +152,7 @@ flowchart TB
 
     style J fill:#fff0d9,stroke:#c58b2a,color:#61420b
     style O fill:#e2f3e8,stroke:#398453,color:#174c2d
+```
 
 ## Experiments
 
