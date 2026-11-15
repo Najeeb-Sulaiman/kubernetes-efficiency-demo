@@ -128,6 +128,30 @@ The response includes information about the application instance and the work pe
 
 The port-forward is useful for testing an individual access path. For load-generation experiments, use the Kubernetes Service from inside the cluster so requests can be distributed across its backing pods.
 
+## Scaling Lifecycle
+
+Below diagram explains the scaling lifecycle.
+
+flowchart TB
+    A["Workload demand increases"] --> B["CPU utilisation rises"]
+    B --> C["Metrics Server exposes metrics"]
+    C --> D["HPA evaluates CPU target"]
+    D --> E["HPA increases desired replicas"]
+    E --> F["Deployment creates additional pods"]
+    F --> G["Scheduler evaluates available nodes"]
+    G --> H{"Can the pods be scheduled?"}
+    H -- Yes --> I["Pods are scheduled"]
+    H -- No --> J["Pods remain Pending"]
+    J --> K{"Is a suitable node autoscaler configured?"}
+    K -- Yes --> L["Node autoscaler attempts to provision capacity"]
+    K -- No --> M["Additional capacity must be provided"]
+    L --> N["New node joins cluster"]
+    N --> G
+    I --> O["Application capacity increases"]
+
+    style J fill:#fff0d9,stroke:#c58b2a,color:#61420b
+    style O fill:#e2f3e8,stroke:#398453,color:#174c2d
+
 ## Experiments
 
 The repository is organised around a series of experiments. The aim of this experiments is to understand how the different Kubernetes mechanisms interact.
