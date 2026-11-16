@@ -66,6 +66,10 @@ Check that your Kubernetes node is ready:
 kubectl get nodes
 ```
 
+You should see something similar to:
+
+![image](terminal-output/get-nodes.png)
+
 3. Build the application image
 
 ```bash
