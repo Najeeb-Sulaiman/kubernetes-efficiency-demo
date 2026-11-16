@@ -68,7 +68,7 @@ kubectl get nodes
 
 You should see something similar to:
 
-![image](terminal-output/get-nodes.png)
+![image](terminal-output/01-get-nodes.png)
 
 3. Build the application image
 
@@ -101,6 +101,10 @@ kubectl get pods
 ```
 
 The application should start with two replicas.
+
+![image](terminal-output/02-get-deployments.png)
+
+![image](terminal-output/03-get-pods.png)
 
 5. Access the application
 
