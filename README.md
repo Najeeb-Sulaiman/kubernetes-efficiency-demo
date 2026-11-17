@@ -395,6 +395,14 @@ FailedScheduling
 Insufficient cpu
 ```
 
+![describe-pod](terminal-output/11-describe-pod.png)
+
+**Terminal outputs:**
+
+See how the two replica pods get stucked in pending:
+
+![get-pods](terminal-output/10-get-pods.png)
+
 The key takeaway here is that Actual CPU consumption and schedulable CPU capacity are not the same thing.
 
 ### Experiment 4: What happens when we introduce another node?

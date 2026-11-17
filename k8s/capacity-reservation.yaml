@@ -16,8 +16,8 @@ spec:
 
       resources:
         requests:
-          cpu: "8400m"
+          cpu: "8000m"
           memory: "32Mi"
         limits:
-          cpu: "8400m"
+          cpu: "8000m"
           memory: "32Mi"
