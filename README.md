@@ -292,8 +292,6 @@ And periodically:
 kubectl top pods
 ```
 
-![get-hpa](terminal-output/07-get-hpa-w.png)
-
 Don't worry if scaling is not instantaneous. HPA operates through a periodic control loop, and new pods need time to start.
 
 **You should observe:**
@@ -317,6 +315,21 @@ kubectl get hpa -w
 You should eventually see the replica count reduce towards the minimum of two.
 
 Scale-down is not may not be immediate. Kubernetes uses stabilisation behaviour to avoid constantly adding and removing replicas when workload fluctuates.
+
+**Example terminal outputs:**
+
+See the rise in CPU consumption when traffic increases:
+
+![get-hpa](terminal-output/09-top-pods.png)
+
+HPA detects average CPU utilisation exceeds the 50% target, and increases desired replicas
+
+![get-hpa](terminal-output/07-get-hpa-w.png)
+
+This is the pod autoscaling lifecycle (notice the creation of new pods due to increase in traffic and the termination of pods due to decrease in traffic):
+
+![get-hpa](terminal-output/08-get-pods-w.png)
+
 
 ### Experiment 3: Why is my pod Pending when the node has unused CPU?
 
@@ -357,11 +370,11 @@ Use the Allocated resources section to understand the existing requests.
 
 Then apply the capacity-reservation manifest:
 
+**Important:** Adjust its CPU request based on the actual available scheduling capacity of your node. Don't assume a fixed value will work across different Minikube configurations.
+
 ```bash
 kubectl apply -f k8s/capacity-reservation.yaml
 ```
-
-Adjust its CPU request based on the actual available scheduling capacity of your node. Don't assume a fixed value will work across different Minikube configurations.
 
 Reintroduce workload pressure and observe the pods:
 
