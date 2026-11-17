@@ -254,6 +254,8 @@ kubectl get hpa
 kubectl describe hpa customer-event-processor
 ```
 
+![get-hpa](terminal-output/06-get-hpa.png)
+
 The example HPA configuration uses:
 
 - Minimum replicas: 2
@@ -270,7 +272,7 @@ Now, introduce concurrent requests using the load generator:
 python load.py
 ```
 
-The load generator should send concurrent requests to the Kubernetes Service and maintain sufficient workload pressure to trigger scaling.
+The load generator should send concurrent requests to the Kubernetes Service and maintain sufficient workload pressure that will push CPU utilisation above our HPA target and trigger scaling.
 
 Observe the autoscaler:
 
@@ -284,6 +286,16 @@ In another terminal:
 kubectl get pods -w
 ```
 
+And periodically:
+
+```bash
+kubectl top pods
+```
+
+![get-hpa](terminal-output/07-get-hpa-w.png)
+
+Don't worry if scaling is not instantaneous. HPA operates through a periodic control loop, and new pods need time to start.
+
 **You should observe:**
 
 - How does CPU utilisation change when load is introduced?
@@ -293,6 +305,18 @@ kubectl get pods -w
 - Does the replica count immediately return to its minimum?
 
 Don't just watch the replica count. Try to understand why it changes and what influences the timing.
+
+Observe scale-down:
+
+Once the 90-second load test finishes, continue watching:
+
+```bash
+kubectl get hpa -w
+```
+
+You should eventually see the replica count reduce towards the minimum of two.
+
+Scale-down is not may not be immediate. Kubernetes uses stabilisation behaviour to avoid constantly adding and removing replicas when workload fluctuates.
 
 ### Experiment 3: Why is my pod Pending when the node has unused CPU?
 
