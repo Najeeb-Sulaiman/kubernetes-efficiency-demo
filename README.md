@@ -106,6 +106,12 @@ The application should start with two replicas.
 
 ![image](terminal-output/03-get-pods.png)
 
+Check the Service:
+
+```bash
+kubectl get services
+```
+
 5. Access the application
 
 Forward the Kubernetes Service to your local machine:
@@ -138,7 +144,7 @@ The port-forward is useful for testing an individual access path. For load-gener
 
 ## Scaling Lifecycle
 
-Below diagram explains the scaling lifecycle.
+The below diagram visually explains the scaling lifecycle we want to experiment.
 
 ```mermaid
 flowchart TB
@@ -164,7 +170,9 @@ flowchart TB
 
 ## Experiments
 
-The repository is organised around a series of experiments. The aim of this experiments is to understand how the different Kubernetes mechanisms interact.
+So far, we have deployed two replicas with fixed resource allocations. Regardless of whether the application receives 10 requests or 10,000 requests, Kubernetes will maintain those two replicas.
+
+With the following experiments, we will introduce the Horizontal Pod Autoscaler (HPA) and observe how Kubernetes responds when workload demand changes. The aim of this experiments is to understand how the different Kubernetes mechanisms interact and how to effieciently run workloads in Kubernetes.
 
 ### Experiment 1: Understand resource requests and limits
 
