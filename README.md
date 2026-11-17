@@ -379,8 +379,16 @@ kubectl apply -f k8s/capacity-reservation.yaml
 Reintroduce workload pressure and observe the pods:
 
 ```bash
+pyhton3 load.py
+```
+
+```bash
 kubectl get pods -w
 ```
+
+![get-pods](terminal-output/10-get-pods.png)
+
+See how the two replica pods get stucked in pending
 
 Inspect any Pending pod:
 
@@ -397,11 +405,8 @@ Insufficient cpu
 
 ![describe-pod](terminal-output/11-describe-pod.png)
 
-**Terminal outputs:**
 
-See how the two replica pods get stucked in pending:
-
-![get-pods](terminal-output/10-get-pods.png)
+HPA has done its job. It has identified increased demand and requested more replicas. But creating a pod and finding somewhere to run it are two different things. The scheduler cannot place a pod when the node doesn't have enough available resources according to its scheduling constraints.
 
 The key takeaway here is that Actual CPU consumption and schedulable CPU capacity are not the same thing.
 
@@ -470,6 +475,6 @@ Deepen your understanding by connecting the experiments with the official Kubern
 - [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
 - [Kubernetes Scheduler](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/)
 - [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/)
-- Horizontal Pod Autoscaling
-- Node Autoscaling
-- Metrics Server
+- [Horizontal Pod Autoscaling](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)
+- [Node Autoscaling](https://kubernetes.io/docs/concepts/cluster-administration/node-autoscaling/)
+- [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
