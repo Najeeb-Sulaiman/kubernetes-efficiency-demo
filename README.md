@@ -112,6 +112,8 @@ Check the Service:
 kubectl get services
 ```
 
+![image](terminal-output/04-get-service.png)
+
 5. Access the application
 
 Forward the Kubernetes Service to your local machine:
@@ -221,6 +223,22 @@ Enable Metrics Server:
 ```bash
 minikube addons enable metrics-server
 ```
+
+Wait for it to become ready:
+
+```bash
+kubectl get deployment metrics-server -n kube-system
+```
+
+Now try:
+
+```bash
+kubectl top pods
+```
+
+![image](terminal-output/05-top-pods.png)
+
+You should see CPU and memory consumption.
 
 Deploy the HPA configuration:
 
