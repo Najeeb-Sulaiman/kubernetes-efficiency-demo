@@ -1,6 +1,6 @@
 # Kubernetes Efficiency: Beyond Rightsizing
 
-Explore how Kubernetes manages resources, schedules workloads and responds to changing demand through a practical, hands-on demonstration.
+This project explores how Kubernetes manages resources, schedules workloads and responds to changing demand through a practical, hands-on demonstration.
 
 This repository contains a small CPU-intensive application deployed to Kubernetes. The application is used it to experiment with resource requests and limits, observe the Horizontal Pod Autoscaler (HPA), investigate why pods remain Pending even when nodes appear to have unused CPU, and understand the relationship between application scaling and infrastructure capacity.
 
@@ -146,7 +146,7 @@ The port-forward is useful for testing an individual access path. For load-gener
 
 ## Scaling Lifecycle
 
-The below diagram visually explains the scaling lifecycle we want to experiment.
+The below diagram visually explains the scaling lifecycle in this experiment.
 
 ```mermaid
 flowchart TB
@@ -478,3 +478,10 @@ Deepen your understanding by connecting the experiments with the official Kubern
 - [Horizontal Pod Autoscaling](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)
 - [Node Autoscaling](https://kubernetes.io/docs/concepts/cluster-administration/node-autoscaling/)
 - [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
+
+
+## Contributing
+
+Found something interesting? Have an idea for another experiment? Spotted an issue or a technical inaccuracy?
+
+Contributions are welcome.
